@@ -18,6 +18,27 @@ $(document).ready(function () {
         }
     }
 
+    function addNewButton(){
+        $("#addGif").on("click", function(){
+        var action = $("#action-input").val().trim();
+        if (action == ""){
+          return false; // added so user cannot add a blank button
+        }
+        actions.push(action);
+    
+        displayGifButtons();
+        return false;
+        });
+    }
+    
+    function removeLastButton(){
+        $("removeGif").on("click", function(){
+        actions.pop(action);
+        displayGifButtons();
+        return false;    
+        });
+    }
+
     // Function that displays all of the gifs
     function displayGifs() {
         var action = $(this).attr("data-name");
@@ -31,7 +52,9 @@ $(document).ready(function () {
         }).then(function (response) {
             console.log('%c response', 'color: red; font-weight: bold;');
             $("#gifsArea").empty();
-            var results = response.data; //shows results of gifs
+
+            //shows results of gifs
+            var results = response.data;
             if (results == "") {
                 alert("well ain\'t that cute... but it\'s wrong.");
             }
@@ -55,19 +78,29 @@ $(document).ready(function () {
                 $("#gifsArea").prepend(gifDiv);
                 console.log('%c gifDiv', 'color: green; font-weight: bold;');
             }
-
-
-
-
-
-
+            // function addNewButton(){
+            //     $("#addGif").on("click", function(){
+            //     var action = $("#action-input").val().trim();
+            //     if (action == ""){
+            //       return false; // added so user cannot add a blank button
+            //     }
+            //     actions.push(action);
+            
+            //     displayGifButtons();
+            //     return false;
+            //     });
+            // }        
+    
 
         });
     }
 
 
-
+    // allways remember to call out functions 
     displayGifButtons();
+    addNewButton();
+    removeLastButton();
+
     $(document).on("click", ".action", displayGifs);
 
 
