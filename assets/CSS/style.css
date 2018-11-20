@@ -14,12 +14,24 @@ body {
 
 }
 
-.gifDiv {
 
+.col-lg-3 {
+    position: relative; 
+    /* float: right; */
+    
+
+}
+
+
+
+.gifDiv {
+    float: left;
+    margin: 3px;
 
 }
 
 #footer {
+    clear: both;
 	position: sticky;
     text-align: center;
     
