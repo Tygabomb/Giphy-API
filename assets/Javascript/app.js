@@ -3,28 +3,29 @@
 $(document).ready(function () {
 
     // Variable arry for starting buttons 
-    var actions = ["Dj-Khaled", "Marshawn Lynch", "NBA", "FPS", "Final Fantasy", "Hooping", "Drake", "French Bulldogs", "Meeseeks", "Winking", "Electricity", "Arizona", "Dunks", "Shaq",];
+    var myGifs = ["Dj-Khaled", "Marshawn Lynch", "NBA", "FPS", "Final Fantasy", "Ballin", "Drake", "French Bulldogs", "Meeseeks", "Winking", "Electricity", "Arizona", "Dunks", "Shaq",];
 
     function displayGifButtons() {
-        $("#gifButtonsArea").empty(); // erasing anything in this div id so that it doesnt duplicate the results
-        for (var i = 0; i < actions.length; i++) {
+        $("#gifButtonsArea").empty(); 
+        for (var i = 0; i < myGifs.length; i++) {
             var gifButton = $("<button>");
             gifButton.addClass("action");
             gifButton.addClass("btn btn-secondary", "padding-bottom: 2px")
-            gifButton.attr("data-name", actions[i]);
-            gifButton.text(actions[i]);
+            gifButton.attr("data-name", myGifs[i]);
+            gifButton.text(myGifs[i]);
             $("#gifButtonsArea").append(gifButton);
-            console.log('%c actions.length', "color: blue; font-wieght: bold;")
+            console.log('%c myGifs.length', "color: blue; font-wieght: bold;")
         }
     }
 
     function addNewButton(){
         $("#addGif").on("click", function(){
-        var action = $("#action-input").val().trim();
+        var action = $("#Giff-input").val().trim();
         if (action == ""){
-          return false; // added so user cannot add a blank button
+            // no blank spots
+            return false; 
         }
-        actions.push(action);
+        myGifs.push(action);
     
         displayGifButtons();
         return false;
@@ -32,8 +33,8 @@ $(document).ready(function () {
     }
     
     function removeLastButton(){
-        $("removeGif").on("click", function(){
-        actions.pop(action);
+        $("remove").on("click", function(){
+        myGifs.pop(action);
         displayGifButtons();
         return false;    
         });
@@ -60,31 +61,38 @@ $(document).ready(function () {
             }
             for (var i = 0; i < results.length; i++) {
 
-                var gifDiv = $("<div>"); //div for the gifs to go inside
+                var gifDiv = $("<div>"); 
                 gifDiv.addClass("gifDiv");
+
                 // pulling rating of gif
-                var gifRating = $("<p>").html("Rating: " + results[i].rating);
+                var gifRating = $("<p>").html("Rating: " + results[i].Rating);
                 gifDiv.append(gifRating);
+
                 // pulling gif
                 var gifImage = $("<img>");
-                gifImage.attr("src", results[i].images.fixed_height_small_still.url); // still image stored into src of image
-                gifImage.attr("data-still", results[i].images.fixed_height_small_still.url); // still image
-                gifImage.attr("data-animate", results[i].images.fixed_height_small.url); // animated image
-                gifImage.attr("data-state", "still"); // set the image state
+
+    
+                gifImage.attr("data-still", results[i].images.fixed_height_small_still.url); 
+                gifImage.attr("data-animate", results[i].images.fixed_height_small.url); 
+                gifImage.attr("data-state", "still");
+                gifImage.attr("src", results[i].images.fixed_height_small_still.url);
                 gifImage.addClass("image");
                 gifDiv.append(gifImage);
-                // pulling still image of gif
+                
+
+                
                 // adding div of gifs to gifsArea div
                 $("#gifsArea").prepend(gifDiv);
                 console.log('%c gifDiv', 'color: green; font-weight: bold;');
             }
-            // function addNewButton(){
+            // function addRandoButton(){
             //     $("#addGif").on("click", function(){
-            //     var action = $("#action-input").val().trim();
+            //     var action = $("#mfGif").val().trim();
             //     if (action == ""){
-            //       return false; // added so user cannot add a blank button
+            //       return false;
+            //      alert(well you broke..it);
             //     }
-            //     actions.push(action);
+            //     
             
             //     displayGifButtons();
             //     return false;
@@ -102,7 +110,7 @@ $(document).ready(function () {
     removeLastButton();
 
     $(document).on("click", ".action", displayGifs);
-    $(".image").on("click", ".image", function() {
+    $(document).on("click", ".image", function() {
         var state = $(this).attr("data-state");
         if (state === "still") {
             $(this).attr("src", $(this).attr("data-animate"));
