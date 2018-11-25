@@ -85,22 +85,40 @@ $(document).ready(function () {
                 $("#gifsArea").prepend(gifDiv);
                 console.log('%c gifDiv', 'color: green; font-weight: bold;');
             }
-            // function addRandoButton(){
-            //     $("#addGif").on("click", function(){
-            //     var action = $("#mfGif").val().trim();
-            //     if (action == ""){
-            //       return false;
-            //      alert(well you broke..it);
-            //     }
-            //     
-            
-            //     displayGifButtons();
-            //     return false;
-            //     });
-            // }        
+            function downloadGifBtn(){
+                $("#download").on("click", function(){
+                
+                    
+                });
+            }        
     
 
         });
+    }
+    // function to save the giff externally 
+    document.onclick = function (e) {
+        e = e || window.event;
+        var element = e.target || e.srcElement;
+        if (element.innerHTML == "Image") {
+            //someFunction(element.href);
+            var name = element.nameProp;
+            var address = element.href;
+            saveImageAs1(element.nameProp, element.href);
+            return false; // Prevent default action and stop event propagation
+        }
+        else
+            return true;
+    };
+
+    function saveImageAs1(name, adress) {
+        var SaveGiff = $("#download").val().trim();
+
+        if (confirm('you wanna save this image?')) {
+            window.win = open(adress);
+            //response.redirect("~/testpage.html");
+            setTimeout('win.document.execCommand("SaveAs")', 100);
+            setTimeout('win.close()', 500);
+        }
     }
 
 
